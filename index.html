@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="google-site-verification" content="HoWofmErOOKMSn8dHeXvBTb5cGoEBEB1rQ7Y3CrUYgY" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>ColorPickerHub — Free Color Picker, HEX to RGB & HSL Converter</title>
+<meta name="description" content="Pick any color and instantly convert between HEX, RGB and HSL with ColorPickerHub. Get shades, tints, ready-made palettes and clear guides to choosing colors for websites and design.">
+<link rel="canonical" href="https://hubcolorpicker.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ColorPickerHub">
+<meta property="og:title" content="ColorPickerHub — Free Color Picker & Color Converter">
+<meta property="og:description" content="Pick a color, copy its HEX, RGB and HSL codes, explore shades and tints, and learn how to choose colors that work.">
+<meta property="og:url" content="https://hubcolorpicker.github.io/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ColorPickerHub — Free Color Picker & Color Converter">
+<meta name="twitter:description" content="Instant HEX, RGB and HSL conversion, shades, tints and palettes — free in your browser.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"ColorPickerHub","url":"https://hubcolorpicker.github.io/","description":"Free color picker and converter for HEX, RGB and HSL with shades, tints, palettes and color guides."}
+</script>
+<style>
+:root{
+  --bg:#faf9f7; --bg2:#f3f1ed; --surface:#ffffff; --ink:#1c1917; --muted:#57534e; --line:#e7e2da;
+  --accent:#9a3412; --accent2:#1c1917; --link:#9a3412; --chip:#f3f1ed;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#1c1917; --bg2:#292524; --surface:#292524; --ink:#f5f5f4; --muted:#d6d3d1; --line:#44403c; --accent:#fdba74; --link:#fdba74; --chip:#292524; }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.75;font-size:17px}
+a{color:var(--link);text-decoration:underline;text-underline-offset:3px}
+a:hover{opacity:.85}
+h1,h2,h3{font-family:Georgia,'Times New Roman',serif;line-height:1.2;font-weight:700;color:var(--ink)}
+h1{font-size:2.35rem;margin:.2em 0 .4em}
+h2{font-size:1.65rem;margin:1.6em 0 .5em;border-bottom:1px solid var(--line);padding-bottom:.35em}
+h3{font-size:1.2rem;margin:1.3em 0 .4em}
+p{margin:.7em 0}
+ul,ol{margin:.6em 0 .6em 1.2em;padding:0}
+li{margin:.35em 0}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px 56px}
+header.site{border-bottom:1px solid var(--line);background:var(--bg)}
+.header-in{max-width:860px;margin:0 auto;padding:16px 20px;display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;justify-content:space-between}
+.logo{font-family:Georgia,serif;font-weight:700;font-size:1.35rem;color:var(--ink);text-decoration:none}
+.logo span{color:var(--accent)}
+nav.main{display:flex;flex-wrap:wrap;gap:4px 16px}
+nav.main a{color:var(--ink);text-decoration:none;font-size:.97rem;padding:8px 2px;min-height:36px;display:inline-flex;align-items:center}
+nav.main a:hover{color:var(--accent);text-decoration:underline}
+.lead{font-size:1.13rem;color:var(--muted)}
+.page{display:none}
+.page.active{display:block}
+.toolbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin:22px 0 8px}
+.preview{height:150px;border-radius:10px;border:1px solid var(--line);display:flex;align-items:flex-end;padding:12px;margin-bottom:18px}
+.preview span{background:rgba(255,255,255,.92);color:#1c1917;padding:4px 10px;border-radius:999px;font-size:.9rem;font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr} h1{font-size:1.9rem}}
+label{font-weight:600;font-size:.95rem;display:block;margin-bottom:6px}
+input[type="color"]{width:100%;height:56px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:4px;cursor:pointer}
+input[type="text"],input[type="number"]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-size:1rem;min-height:44px}
+input[type="range"]{width:100%;accent-color:var(--accent);min-height:36px}
+.slider-row{display:grid;grid-template-columns:22px 1fr 64px;gap:10px;align-items:center;margin:6px 0}
+.code-row{display:flex;gap:8px;align-items:stretch;margin:10px 0}
+.code-row code{flex:1;background:var(--chip);border:1px solid var(--line);border-radius:8px;padding:11px 12px;font-size:1rem;display:flex;align-items:center;overflow-wrap:anywhere}
+button{cursor:pointer;border:1px solid var(--accent2);background:var(--accent2);color:#fff;padding:10px 16px;border-radius:8px;font-size:.95rem;min-height:44px}
+@media(prefers-color-scheme:dark){button{background:var(--accent);color:#1c1917;border-color:var(--accent)}}
+button.secondary{background:transparent;color:var(--ink);border-color:var(--line)}
+button:active{transform:scale(.98)}
+.swatches{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.swatch{width:52px;height:52px;border-radius:10px;border:1px solid rgba(0,0,0,.15);cursor:pointer;padding:0;min-height:52px}
+.swatch small{display:block}
+.palette-block{margin:18px 0}
+.palette-block .swatches .swatch{width:64px;height:44px;min-height:44px}
+.small{font-size:.92rem;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:#1c1917;color:#fff;padding:10px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:50;font-size:.95rem}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(prefers-color-scheme:dark){.toast{background:#f5f5f4;color:#1c1917}}
+footer{border-top:1px solid var(--line);margin-top:48px;padding:28px 0 10px;color:var(--muted);font-size:.95rem}
+footer a{color:var(--muted)}
+.faq-q{font-weight:700;margin-top:1.2em}
+.meta{color:var(--muted);font-size:.93rem}
+hr.sep{border:none;border-top:1px solid var(--line);margin:28px 0}
+.contrast-demo{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.contrast-demo div{flex:1;min-width:180px;padding:16px;border-radius:10px;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="header-in">
+    <a class="logo" href="#/">ColorPicker<span>Hub</span></a>
+    <nav class="main" aria-label="Main navigation">
+      <a href="#/">Picker</a>
+      <a href="#/articles">Articles</a>
+      <a href="#/faq">FAQ</a>
+      <a href="#/about">About</a>
+      <a href="#/contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ============ HOME ============ -->
+<main class="page" id="page-home">
+  <h1>Pick a color. Get every code for it — instantly.</h1>
+  <p class="lead">ColorPickerHub is a free color picker and converter that runs entirely in your browser. Choose any color below and you will immediately see its HEX, RGB and HSL values, a full range of darker shades and lighter tints, and ready-made combinations you can copy into a website, an app, a document or a design project.</p>
+  <p>Whether you are building a website, preparing a presentation, matching a brand color from a photograph, or simply trying to describe “that exact blue” to someone else, a color code removes all the guesswork. Instead of saying “a sort of warm orange,” you share <strong>#E8590C</strong> — and anyone, anywhere, can reproduce precisely the same color. This page gives you the tool first, then explains <a href="#/article/hex-rgb-hsl">how HEX, RGB and HSL codes work</a> so the numbers actually make sense.</p>
+
+  <section class="toolbox" aria-label="Color picker tool">
+    <div class="preview" id="preview"><span id="previewLabel">#3B82F6</span></div>
+    <div class="grid2">
+      <div>
+        <label for="colorInput">1. Pick a color</label>
+        <input type="color" id="colorInput" value="#3b82f6" aria-label="Native color picker">
+        <label for="hexInput" style="margin-top:14px">Or type a HEX code</label>
+        <input type="text" id="hexInput" value="#3B82F6" maxlength="7" spellcheck="false" autocomplete="off">
+        <p class="small">Use the format #RRGGBB, for example #FF0000 for pure red. Short codes like #F00 are expanded automatically.</p>
+      </div>
+      <div>
+        <label>2. Fine-tune with RGB sliders</label>
+        <div class="slider-row"><span><strong>R</strong></span><input type="range" id="rRange" min="0" max="255" value="59"><input type="number" id="rNum" min="0" max="255" value="59"></div>
+        <div class="slider-row"><span><strong>G</strong></span><input type="range" id="gRange" min="0" max="255" value="130"><input type="number" id="gNum" min="0" max="255" value="130"></div>
+        <div class="slider-row"><span><strong>B</strong></span><input type="range" id="bRange" min="0" max="255" value="246"><input type="number" id="bNum" min="0" max="255" value="246"></div>
+        <p class="small">Red, green and blue light are mixed to make every color on a screen. Raise all three together and the color gets brighter; lower them together and it gets darker.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:22px">3. Copy the code you need</h3>
+    <div class="code-row"><code id="hexOut">#3B82F6</code><button type="button" data-copy="hexOut">Copy HEX</button></div>
+    <div class="code-row"><code id="rgbOut">rgb(59, 130, 246)</code><button type="button" data-copy="rgbOut">Copy RGB</button></div>
+    <div class="code-row"><code id="hslOut">hsl(217, 91%, 60%)</code><button type="button" data-copy="hslOut">Copy HSL</button></div>
+    <div class="code-row"><code id="cssOut">background-color: #3B82F6;</code><button type="button" data-copy="cssOut">Copy CSS</button></div>
+
+    <h3 style="margin-top:22px">Shades — this color mixed toward black</h3>
+    <div class="swatches" id="shades"></div>
+    <h3>Tints — this color mixed toward white</h3>
+    <div class="swatches" id="tints"></div>
+    <h3>Tones — this color mixed toward gray</h3>
+    <div class="swatches" id="tones"></div>
+    <p class="small">Tap any swatch above to load that exact color into the picker. Shades work well for hover states and headings, tints for backgrounds, and tones for muted, sophisticated sections.</p>
+  </section>
+
+  <h2>Ready-made palettes to start from</h2>
+  <p>A single color rarely works alone. Most designs need a small family: one main color, one supporting color, one accent for buttons and links, plus neutrals for text and backgrounds. The palettes below are balanced starting points — tap any swatch to inspect it in the picker, then adjust it until it feels like yours. Our longer guide on <a href="#/article/choose-palette">how to choose a color palette</a> explains the method behind combinations like these.</p>
+  <div id="palettes"></div>
+  <p>Notice what these palettes share: most of the space is neutral, and the strongest color appears in small doses. That restraint is what makes a design look calm and professional rather than noisy. If everything shouts, nothing is heard.</p>
+
+  <h2>How color codes work</h2>
+  <p>Every color you see on a screen is made from three lights: red, green and blue. Turn all three up to full power and you get white; turn them all off and you get black. Mix red and green with no blue and you get yellow. Every other color — all sixteen million or so of them — is some in-between mixture. A color code is simply a compact way of writing down that mixture so a computer can repeat it exactly.</p>
+  <p>The three systems on this page describe the same mixture from different angles. <strong>HEX</strong> packs the red, green and blue amounts into six characters, which is why web designers love it: it is short enough to paste into CSS. <strong>RGB</strong> writes the same three amounts as ordinary numbers from 0 to 255, which makes it easy to read and to adjust one channel at a time with the sliders above. <strong>HSL</strong> describes a color the way people naturally think about it — by its hue (where it sits on the rainbow), its saturation (how vivid or gray it is) and its lightness (how close it is to white or black). If you want the full story, read our article <a href="#/article/hex-rgb-hsl">HEX, RGB and HSL explained in plain English</a>.</p>
+  <p>Here is a quick check you can do yourself with the tool: set the picker to pure red. The HEX reads #FF0000, the RGB reads rgb(255, 0, 0), and the HSL reads hsl(0, 100%, 50%). Three different writings, one identical color. Pure green is #00FF00 and hsl(120, 100%, 50%); pure blue is #0000FF and hsl(240, 100%, 50%). Once you see that pattern — hue 0 is red, 120 is green, 240 is blue — the color wheel stops being mysterious.</p>
+
+  <h2>HEX vs RGB vs HSL: which should you use?</h2>
+  <p>There is no single “best” format; there is only the format that suits the job in front of you. Use <strong>HEX</strong> when you need to store or share a color — in a style guide, a brand document, an email to a developer, or a design tool. It is the most compact and the most widely understood. Use <strong>RGB</strong> when you need transparency: the rgba() form adds a fourth number for opacity, which is how you create soft overlays and shadows that let the background show through. Use <strong>HSL</strong> when you are creating variations by hand, because its numbers map to human intentions. Need a lighter version of a button color for its hover state? Keep the hue and saturation, raise the lightness by ten points. Need a muted version for a background? Lower the saturation. With HEX, those same adjustments are guesswork.</p>
+  <p>A practical workflow many designers follow: choose colors in HSL because it is intuitive, store the final choices as HEX because it is portable, and switch to RGB only when transparency is involved. The converter above makes moving between the three effortless, so you never have to commit to one system for everything.</p>
+
+  <h2>Choosing colors for a website</h2>
+  <p>Start with the feeling, not the color. A law firm, a children's toy shop and a music festival should not share a palette, because color sets expectations before a single word is read. Write down three words for the mood of your site — calm and trustworthy, bold and energetic, warm and handmade — and let those words narrow the hue families worth exploring. Our article on <a href="#/article/color-meanings">what colors mean in design</a> walks through the associations each major hue carries.</p>
+  <p>Then apply the 60-30-10 rule borrowed from interior design: roughly sixty percent of the page is a quiet neutral (white, off-white, light gray), thirty percent is your main brand color family, and ten percent is a contrasting accent reserved for the things you most want noticed — buttons, links, prices, calls to action. If the accent appears everywhere, it stops being an accent. Finally, check that your text is actually readable: dark text on a light background or light text on a dark background, with enough contrast between them. This is not only a matter of taste; it is an accessibility requirement covered in our guide to <a href="#/article/accessibility-contrast">web accessibility and color contrast</a>.</p>
+  <p>Test your palette on a real page, not just as swatches. Colors behave differently at different sizes: a vivid orange that looks exciting as a small button can feel exhausting as a full-page background, and a pale gray that looks elegant as a background can make body text strain the eyes. Use the shades and tints generator above to build a small scale for your main color — background tint, border tone, main shade, dark shade for text — and your design will look coherent almost automatically.</p>
+
+  <h2>What colors mean</h2>
+  <p>Color carries meaning whether we plan it or not. Blue suggests trust and stability, which is why banks and technology companies reach for it so often. Green is tied to nature, health and growth. Red creates urgency and appetite — it speeds the pulse a little — so it appears on sale banners and food brands, but large areas of it can feel aggressive. Yellow is cheerful and attention-grabbing yet tiring in bulk. Purple has long been linked with creativity and luxury. Orange feels friendly and affordable. Black signals sophistication; white signals simplicity and cleanliness; gray signals neutrality and professionalism.</p>
+  <p>These associations are tendencies, not laws, and culture shifts them — white means weddings in some countries and mourning in others. Treat meanings as a starting hypothesis, then check them against your actual audience. The full discussion, with examples of each hue used well and badly, is in <a href="#/article/color-meanings">Color meanings in design: what each color says about your brand</a>.</p>
+
+  <h2>Common questions, briefly answered</h2>
+  <p class="faq-q">Why does my color look different on my phone and my laptop?</p>
+  <p>Screens are calibrated differently, and brightness, night modes and ambient light all shift perception. The code is exact; the display is approximate. This is normal, and it is why professionals judge color by its numbers first and its appearance second.</p>
+  <p class="faq-q">What is the difference between a shade, a tint and a tone?</p>
+  <p>A shade is a color plus black, a tint is a color plus white, and a tone is a color plus gray. The generator above produces all three so you can compare them side by side.</p>
+  <p class="faq-q">Can I use these colors commercially?</p>
+  <p>Yes. A color value itself — a HEX code — is a fact, not a creative work, and you may use any code you find or create here in personal and commercial projects. (A specific shade can occasionally be trademarked as part of a brand identity, so avoid deliberately imitating a famous brand's exact presentation.)</p>
+  <p>More answers — including CMYK for print, why colors shift when printed, and how to save a palette — are on the full <a href="#/faq">FAQ page</a>. You can also browse all of our <a href="#/articles">color articles</a>, learn more <a href="#/about">about ColorPickerHub</a>, or <a href="#/contact">get in touch</a> with a suggestion.</p>
+</main>
+
+<!-- ============ ARTICLES INDEX ============ -->
+<main class="page" id="page-articles">
+  <h1>Articles about color</h1>
+  <p class="lead">Clear, original guides to color codes, palettes, meaning and accessibility — written for website owners, students and anyone who works with color on a screen.</p>
+  <h2><a href="#/article/hex-rgb-hsl">HEX, RGB and HSL Explained in Plain English</a></h2>
+  <p>The three ways screens describe color, what each number actually means, and how to convert between them without fear. Includes worked examples you can check in the picker. <a href="#/article/hex-rgb-hsl">Read the article →</a></p>
+  <h2><a href="#/article/choose-palette">How to Choose a Color Palette for Your Website</a></h2>
+  <p>A step-by-step method: start from mood, pick a base hue, build shades and tints, apply the 60-30-10 rule, and test the result like a visitor would. <a href="#/article/choose-palette">Read the article →</a></p>
+  <h2><a href="#/article/color-meanings">Color Meanings in Design: What Each Color Says About Your Brand</a></h2>
+  <p>What red, blue, green, yellow, purple, orange, black, white and gray communicate, where each one works best, and the mistakes that send the wrong signal. <a href="#/article/color-meanings">Read the article →</a></p>
+  <h2><a href="#/article/accessibility-contrast">Web Accessibility and Color Contrast: A Practical Guide</a></h2>
+  <p>Why contrast ratios matter, what the WCAG thresholds actually require, and how to fix unreadable text without ruining your design. <a href="#/article/accessibility-contrast">Read the article →</a></p>
+  <hr class="sep">
+  <p>New to all of this? Start with the <a href="#/">color picker tool</a> and experiment — most people learn color fastest by playing with the sliders and watching the codes change.</p>
+</main>
+
+<!-- ============ ARTICLE 1 ============ -->
+<main class="page" id="page-article-hex">
+  <p class="meta"><a href="#/articles">← All articles</a></p>
+  <h1>HEX, RGB and HSL Explained in Plain English</h1>
+  <p class="meta">A ColorPickerHub guide to the three color systems used on every screen.</p>
+  <p>Every color on every screen — this page, your phone, a television — is built from three lights: red, green and blue. That is the whole secret. The systems called HEX, RGB and HSL are just three different ways of writing down how much of each light to use, or, in HSL's case, a clever re-description of the same information in human terms. Once you understand that they all describe the same thing, converting between them stops being intimidating.</p>
+  <h2>RGB: the raw ingredients</h2>
+  <p>RGB is the most direct system. It lists three numbers, each from 0 to 255: how much red, how much green, how much blue. rgb(255, 0, 0) means full red, no green, no blue — pure red. rgb(0, 0, 0) is black, because all the lights are off. rgb(255, 255, 255) is white, because all three are at full power. rgb(128, 128, 128) is a mid gray, all three equal and halfway up.</p>
+  <p>Why 255? Because each channel is stored in one byte, and a byte holds 256 values, numbered 0 to 255. Three channels at 256 values each gives 256 × 256 × 256 = 16,777,216 possible colors — the “16.7 million colors” you see advertised on monitors.</p>
+  <h2>HEX: the same numbers in a compact code</h2>
+  <p>HEX (hexadecimal) writes the exact same three numbers in base 16 instead of base 10, then joins them into one six-character code. Base 16 uses the digits 0–9 plus the letters A–F, so each channel fits in exactly two characters: 0 becomes 00, 255 becomes FF, and 59 becomes 3B. Pure red, rgb(255, 0, 0), becomes #FF0000. The blue used as this site's starting example, rgb(59, 130, 246), becomes #3B82F6 — FF-style pairs 3B, 82, F6. The # symbol simply announces “a HEX color follows.”</p>
+  <p>You will also meet a short three-character form such as #F00. That is shorthand: each character is doubled, so #F00 means #FF0000. Browsers accept both. HEX became the web's favorite because it is short, unambiguous and easy to paste into CSS, HTML and design tools — try pasting any code into the <a href="#/">picker on our homepage</a> and watch the RGB sliders move to match.</p>
+  <h2>HSL: color described the way people think</h2>
+  <p>HSL rearranges the same information into hue, saturation and lightness. <strong>Hue</strong> is an angle on a color wheel, from 0 to 360: 0 is red, 60 is yellow, 120 is green, 180 is cyan, 240 is blue, 300 is magenta, and 360 wraps back to red. <strong>Saturation</strong> is a percentage: 100% is the pure, vivid hue; 0% is gray, with no trace of the hue at all. <strong>Lightness</strong> is also a percentage: 0% is black, 100% is white, and 50% is the hue at its most natural strength.</p>
+  <p>So pure red is hsl(0, 100%, 50%). Our example blue is hsl(217, 91%, 60%) — hue 217 sits between cyan-blue (210) and pure blue (240), it is highly saturated, and it is a little lighter than mid. The power of HSL is adjustment: want that blue softer for a background? Lower saturation to 45% and raise lightness to 88%. In HEX, that edit is a research project; in HSL, it is two obvious numbers.</p>
+  <h2>Which one should you use, and when?</h2>
+  <p>Store and share colors in HEX, because it is compact and universal. Adjust and build families of colors in HSL, because its numbers match your intentions. Use RGB when you need transparency — rgba(59, 130, 246, 0.5) is the example blue at half opacity, something neither plain HEX nor HSL expresses as clearly (though modern CSS adds alpha forms to all three). And when a printer asks for CMYK, know that it is a different system entirely, based on inks rather than light; screen colors converted to print often look duller, which is expected, not a mistake.</p>
+  <p>The best way to make all of this stick is ten minutes of play: open the <a href="#/">ColorPickerHub picker</a>, drag one slider at a time, and watch all three codes change together. Then read <a href="#/article/choose-palette">how to choose a palette</a> to put the knowledge to work.</p>
+</main>
+
+<!-- ============ ARTICLE 2 ============ -->
+<main class="page" id="page-article-palette">
+  <p class="meta"><a href="#/articles">← All articles</a></p>
+  <h1>How to Choose a Color Palette for Your Website</h1>
+  <p class="meta">A practical, step-by-step method that works even if you do not think of yourself as “good with color.”</p>
+  <p>Most bad website color is not caused by bad taste. It is caused by choosing colors one at a time, in isolation, with no system. A palette is a system: a small set of colors with assigned jobs, tested together. Follow the steps below and you will end up with something coherent, even if no individual choice is brilliant.</p>
+  <h2>Step 1: Decide the feeling before the color</h2>
+  <p>Write down three adjectives for your site: “calm, expert, friendly” for a clinic; “fast, bold, rebellious” for a skate shop. Colors are emotional shorthand — our guide to <a href="#/article/color-meanings">color meanings in design</a> maps each hue family to the feelings it tends to trigger. Let the adjectives pick the neighborhood (blues and greens for calm; reds and oranges for energy) before you pick any specific shade.</p>
+  <h2>Step 2: Choose one base color</h2>
+  <p>Pick a single main color that carries your brand. Find it in the <a href="#/">picker</a> by exploring hues at a moderate saturation — very vivid colors are hard to live with in large amounts, and very gray ones can feel lifeless. A useful trick: if the color would look acceptable as a shirt you would wear all day, it is probably in a workable range.</p>
+  <h2>Step 3: Build its family — shades, tints and tones</h2>
+  <p>From the base color, generate darker shades for headings and hover states, lighter tints for backgrounds and panels, and grayish tones for borders and secondary elements. The homepage tool produces all of these from one click. A family built from a single hue always harmonizes with itself, which is why single-hue (“monochromatic”) schemes are the safest starting point for beginners.</p>
+  <h2>Step 4: Add one accent — and ration it</h2>
+  <p>An accent is a contrasting color reserved for action: buttons, links, the “buy” or “book” element. Colors opposite each other on the wheel (blue/orange, purple/yellow, red/green) contrast most strongly. Apply the 60-30-10 rule: about 60% neutral, 30% your main family, 10% accent. The accent's rarity is exactly what makes visitors' eyes go to it.</p>
+  <h2>Step 5: Choose neutrals deliberately</h2>
+  <p>Your text color, background and borders do more visual work than your brand color ever will. Pure black text (#000000) on pure white can feel harsh; a very dark gray such as #1C1917 on an off-white such as #FAF9F7 is softer while keeping strong contrast. Slightly warm or cool grays that lean toward your main hue make a design feel intentional rather than defaulted.</p>
+  <h2>Step 6: Test like a visitor, not like a designer</h2>
+  <p>Put the palette on a real page with real text. Check three things: body text is effortless to read (see the contrast rules in <a href="#/article/accessibility-contrast">our accessibility guide</a>), the main button is the first thing your eye finds, and nothing important is communicated by color alone — a red error message should also say, in words, what went wrong, for visitors who cannot distinguish red. Then view the page outdoors on a phone, where sunlight washes everything out; palettes that survive sunlight survive anything.</p>
+  <p>Finally, write your final codes down — HEX values in a small style note you keep with the site. Consistency over time is what turns “some colors” into “a brand.”</p>
+</main>
+
+<!-- ============ ARTICLE 3 ============ -->
+<main class="page" id="page-article-meanings">
+  <p class="meta"><a href="#/articles">← All articles</a></p>
+  <h1>Color Meanings in Design: What Each Color Says About Your Brand</h1>
+  <p class="meta">The associations each major hue carries, where it works, and where it backfires.</p>
+  <p>Visitors form an impression of a website in well under a second, and color does much of that work before a headline is even read. The meanings below are broad tendencies in Western audiences — culture, context and shade all modify them — but they are reliable enough to steer real decisions, especially when combined with a sensible <a href="#/article/choose-palette">palette-building method</a>.</p>
+  <h2>Blue — trust, calm, competence</h2>
+  <p>Blue is the safest color in design and the most common choice for banks, insurers, software and healthcare. Light blues feel open and friendly; navy feels established and serious. The risk is blandness: because everyone trustworthy chooses blue, blue alone rarely makes a brand memorable. Pair it with a distinctive accent.</p>
+  <h2>Green — nature, health, growth</h2>
+  <p>Green signals the outdoors, freshness, money and “go.” It suits food, wellness, environment and finance brands. Bright lime greens feel youthful and digital; deep forest greens feel premium and calm. Avoid sickly yellow-greens for anything edible or medical — the association flips from fresh to unwell very quickly.</p>
+  <h2>Red — urgency, appetite, passion</h2>
+  <p>Red raises heart rates and demands attention. It sells sales, fast food and sports. Used as an accent — a button, a price, a deadline — it is powerful. Used as a background for long text it becomes tiring and can read as a warning. In interfaces, red also means “error” and “delete,” so never use it casually for ordinary actions.</p>
+  <h2>Yellow and orange — warmth, optimism, value</h2>
+  <p>Yellow is the most visible color and the happiest, but large areas of it strain the eyes and it is nearly impossible to read as text on white. Orange keeps much of the warmth with better manners: friendly, energetic, affordable. Both work well for children's products, food, travel and calls to action aimed at a young audience.</p>
+  <h2>Purple — creativity, luxury, imagination</h2>
+  <p>Historically the rarest dye and the color of royalty, purple still carries premium and creative associations. Deep purples suit beauty, luxury and entertainment; soft lavenders feel gentle and are common in wellness and baby products. Purple's weakness is legibility at small sizes — give purple text plenty of contrast.</p>
+  <h2>Black, white and gray — the neutrals that speak</h2>
+  <p>Black signals sophistication, power and formality — fashion and luxury brands build entire identities on it. White signals simplicity, honesty and cleanliness; it is also the canvas that makes other colors look brighter. Gray signals neutrality, balance and professionalism, but an all-gray design can feel cold or unfinished. Warm grays (with a hint of brown or yellow) feel human; cool grays (with a hint of blue) feel technical.</p>
+  <h2>Use meanings as a compass, not a cage</h2>
+  <p>A children's brand in navy and gray would feel wrong; a funeral service in lime green would feel worse. But within the right neighborhood, your exact shade is yours to choose — test candidates in the <a href="#/">picker</a>, build their shades and tints, and trust the combination of meaning plus readability. And remember that meaning never excuses inaccessibility: a beautiful low-contrast palette is still a broken one, as <a href="#/article/accessibility-contrast">our contrast guide</a> explains.</p>
+</main>
+
+<!-- ============ ARTICLE 4 ============ -->
+<main class="page" id="page-article-access">
+  <p class="meta"><a href="#/articles">← All articles</a></p>
+  <h1>Web Accessibility and Color Contrast: A Practical Guide</h1>
+  <p class="meta">How to keep your text readable for everyone — including visitors with low vision or color blindness — without giving up good design.</p>
+  <p>Roughly one in twelve men and one in two hundred women have some form of color vision deficiency, and many more people read screens with aging eyes, in bright sunlight, or on dim, cheap displays. Designing for contrast is not charity; it is designing for reality. The good news: the rules are simple numbers, and meeting them usually makes a design look sharper for everyone.</p>
+  <h2>What a contrast ratio is</h2>
+  <p>Contrast ratio compares the brightness of text to the brightness of its background, from 1:1 (identical colors — invisible) to 21:1 (black on white). The Web Content Accessibility Guidelines (WCAG) set the widely used thresholds: normal text should reach at least <strong>4.5:1</strong> (level AA), and large text — roughly 18pt and above, or 14pt bold — at least <strong>3:1</strong>. The stricter AAA level asks for 7:1 and 4.5:1 respectively. If you remember only one number, remember 4.5:1 for body text.</p>
+  <div class="contrast-demo">
+    <div style="background:#ffffff;color:#1c1917"><strong>Easy to read</strong><br>Dark text #1C1917 on white — ratio about 17:1. Passes every level.</div>
+    <div style="background:#ffffff;color:#a8a29e"><strong>Hard to read</strong><br>Light gray text #A8A29E on white — ratio about 2.4:1. Fails for body text.</div>
+  </div>
+  <p>The second box above is the single most common accessibility failure on the modern web: fashionable pale-gray text. It looks refined on a designer's calibrated monitor and disappears on everyone else's screens.</p>
+  <h2>Fixing low contrast without ruining the design</h2>
+  <p>You rarely need new colors — you need adjusted ones. Take your too-light text color into the <a href="#/">ColorPickerHub picker</a> and switch to its HSL values: keep the hue and saturation, and lower the lightness step by step until the color is visibly firm against its background. The same trick works in reverse for light text on dark backgrounds. Because HSL separates lightness from hue, your brand color's personality survives the fix.</p>
+  <h2>Never let color be the only signal</h2>
+  <p>Contrast is only half the story. If an error is shown only by turning a field red, a visitor with red-green color blindness may see nothing wrong at all. Always pair color with a second signal: an icon, a label, an underline on links (not just a color change), or plain words — “Error: this field is required.” Charts should label lines directly or use patterns as well as colors. Forms should never rely on “the green button” in their instructions; say “the Continue button.”</p>
+  <h2>A five-minute contrast checklist</h2>
+  <ol>
+    <li>Body text meets 4.5:1 against its background — including text over photos, where the lightest part of the photo is what counts.</li>
+    <li>Headings and large text meet 3:1.</li>
+    <li>Links inside paragraphs are identifiable without color alone — underline them.</li>
+    <li>Buttons and form borders are distinguishable from the background at 3:1, so visitors can find the controls.</li>
+    <li>Placeholder text in form fields is not your only label, and is not pale gray.</li>
+    <li>Zoom the page to 200% and view it in bright light: if it is still comfortable, it is genuinely accessible.</li>
+  </ol>
+  <p>Accessibility and beauty are not opponents. The crisp, confident designs people admire almost always have strong contrast built in. Build your palette with the method in <a href="#/article/choose-palette">our palette guide</a>, then run this checklist over it — your visitors, all of them, will feel the difference.</p>
+</main>
+
+<!-- ============ FAQ ============ -->
+<main class="page" id="page-faq">
+  <h1>Frequently asked questions</h1>
+  <p class="faq-q">Is ColorPickerHub free to use?</p>
+  <p>Yes. The picker, the converter, the shades and tints generator and all articles are free, with no account and no sign-up. The tool runs in your browser.</p>
+  <p class="faq-q">What is a HEX color code?</p>
+  <p>A HEX code is a six-character representation of a color's red, green and blue values, written in base 16 and preceded by a # sign — for example #3B82F6. It is the most common way to specify color in CSS. Our article <a href="#/article/hex-rgb-hsl">HEX, RGB and HSL explained</a> covers it fully.</p>
+  <p class="faq-q">How do I convert HEX to RGB?</p>
+  <p>Split the code into three pairs — 3B, 82, F6 — and convert each pair from base 16 to decimal: 59, 130, 246, giving rgb(59, 130, 246). Or simply paste the HEX code into the <a href="#/">picker</a> and read the answer instantly.</p>
+  <p class="faq-q">What is the difference between a shade, a tint and a tone?</p>
+  <p>A shade mixes a color with black (darker), a tint mixes it with white (lighter), and a tone mixes it with gray (softer). The homepage tool generates all three ranges for any color you pick.</p>
+  <p class="faq-q">Why do colors look different when printed?</p>
+  <p>Screens emit light (RGB); printers apply ink (CMYK), which absorbs light. The printable range of colors is smaller, so vivid screen colors — especially bright greens and blues — print duller. This is a physical limit, not an error in your file.</p>
+  <p class="faq-q">What contrast ratio should my website text have?</p>
+  <p>At least 4.5:1 for normal text and 3:1 for large text, per the WCAG AA standard. See <a href="#/article/accessibility-contrast">our accessibility and contrast guide</a> for practical fixes.</p>
+  <p class="faq-q">Can I use colors I find here in commercial work?</p>
+  <p>Yes. Color values are facts and may be used freely in personal and commercial projects. Avoid deliberately imitating a well-known brand's overall look, which can raise trademark issues — but a HEX code itself is yours to use.</p>
+  <p class="faq-q">Does the site store the colors I pick?</p>
+  <p>No. Everything happens locally in your browser; your picked colors are not sent to or stored on any server.</p>
+</main>
+
+<!-- ============ ABOUT ============ -->
+<main class="page" id="page-about">
+  <h1>About ColorPickerHub</h1>
+  <p>ColorPickerHub is a small, focused tool site built around one idea: working with color on a screen should take seconds, not a software installation. You open the page, pick a color, and immediately have its HEX, RGB and HSL codes, its shades, tints and tones, and palettes it belongs to — ready to copy into whatever you are making.</p>
+  <p>The site pairs the tool with plain-English guides, because a code by itself is only half useful. Knowing that your brand blue is #2563EB matters; knowing why its lightness makes it readable on white, how to build its hover state, and what blue communicates to visitors matters more. Our <a href="#/articles">articles</a> cover the code systems, palette building, color meaning and accessibility in that practical spirit.</p>
+  <p>ColorPickerHub runs entirely in your browser. There are no accounts, no uploads, and nothing you pick is sent anywhere. If you have a suggestion for a feature or an article topic, we would genuinely like to hear it via the <a href="#/contact">contact page</a>.</p>
+</main>
+
+<!-- ============ CONTACT ============ -->
+<main class="page" id="page-contact">
+  <h1>Contact</h1>
+  <p>Questions about the picker, corrections to an article, or a topic you would like us to cover? The fastest way to reach ColorPickerHub is by email:</p>
+  <p><strong><a href="mailto:contact@hubcolorpicker.github.io">contact@hubcolorpicker.github.io</a></strong></p>
+  <p>Please include the page or article your message is about, and — if you are reporting a color that looks wrong — the exact HEX code and the device you saw it on. Screen differences are usually calibration rather than a wrong code, but we check every report.</p>
+  <p>For common questions, the <a href="#/faq">FAQ page</a> may already have your answer.</p>
+</main>
+
+<!-- ============ PRIVACY ============ -->
+<main class="page" id="page-privacy">
+  <h1>Privacy Policy</h1>
+  <p class="meta">Last updated: 2026.</p>
+  <p>ColorPickerHub is designed to need as little information about you as possible. The color picker and converter run entirely in your own browser: the colors you pick, type or copy are processed on your device and are not transmitted to or stored by us.</p>
+  <h2>Information we collect</h2>
+  <p>We do not operate user accounts and we do not ask for names, addresses or payment details. If you email us, we receive the address and contents of your message and use them only to reply.</p>
+  <h2>Cookies and analytics</h2>
+  <p>This site may use privacy-respecting, aggregate analytics to understand which pages are visited, so we can improve them. Such statistics do not include the colors you pick or any text you type into the tool. You can block cookies and scripts in your browser without affecting the picker, which needs neither.</p>
+  <h2>Third parties</h2>
+  <p>We do not sell personal information. Pages contain no embedded social-media trackers operated by us. Links to external sites are governed by those sites' own privacy policies.</p>
+  <h2>Your choices</h2>
+  <p>Because the tool stores nothing, there is nothing to delete. For any privacy question, contact us via the <a href="#/contact">contact page</a>.</p>
+</main>
+
+<!-- ============ TERMS ============ -->
+<main class="page" id="page-terms">
+  <h1>Terms of Use</h1>
+  <p class="meta">Last updated: 2026.</p>
+  <p>By using ColorPickerHub you agree to these terms. The site provides a free color picker, converter and educational articles for personal and commercial design work.</p>
+  <h2>Use of the tool and content</h2>
+  <p>You may use any color values obtained from this site freely, including in commercial projects. Articles are provided for general education; you may link to them, and short quotations with attribution are welcome, but articles may not be republished in full without permission.</p>
+  <h2>Accuracy</h2>
+  <p>Conversions between HEX, RGB and HSL are mathematical and are provided as calculated. Displayed colors may vary between screens due to calibration and settings; always confirm critical brand colors on your target devices and, for print, with a printed proof. We accept no liability for losses arising from reliance on color values without such checks.</p>
+  <h2>Availability</h2>
+  <p>The site is provided “as is,” without warranties of uninterrupted availability. We may update, change or remove features at any time.</p>
+</main>
+
+<!-- ============ DISCLAIMER ============ -->
+<main class="page" id="page-disclaimer">
+  <h1>Disclaimer</h1>
+  <p>The information on ColorPickerHub — including color conversions, palettes and articles — is provided for general educational and design purposes only. While conversions between HEX, RGB and HSL are exact mathematics, the appearance of any color depends on the screen, lighting, materials and printing process involved, and we cannot guarantee that a color will look identical in your final product.</p>
+  <p>Nothing on this site constitutes professional design, legal or accessibility-certification advice. WCAG thresholds are summarized for guidance; organizations with formal accessibility obligations should consult the official guidelines and qualified auditors. Trademark and brand-identity questions should be directed to a qualified legal professional.</p>
+  <p>External links are provided for convenience; we are not responsible for the content of external sites. If you believe any content on this site is inaccurate, please tell us via the <a href="#/contact">contact page</a> and we will review it promptly.</p>
+</main>
+
+<footer>
+  <p><a href="#/">Picker</a> · <a href="#/articles">Articles</a> · <a href="#/faq">FAQ</a> · <a href="#/about">About</a> · <a href="#/contact">Contact</a> · <a href="#/privacy">Privacy</a> · <a href="#/terms">Terms</a> · <a href="#/disclaimer">Disclaimer</a></p>
+  <p>© 2026 ColorPickerHub. Pick a color, copy the code, build something good with it.</p>
+</footer>
+</div>
+
+<div class="toast" id="toast" role="status">Copied</div>
+
+<script>
+(function(){
+  var routes = {
+    '':'page-home','/':'page-home',
+    '/articles':'page-articles',
+    '/article/hex-rgb-hsl':'page-article-hex',
+    '/article/choose-palette':'page-article-palette',
+    '/article/color-meanings':'page-article-meanings',
+    '/article/accessibility-contrast':'page-article-access',
+    '/faq':'page-faq','/about':'page-about','/contact':'page-contact',
+    '/privacy':'page-privacy','/terms':'page-terms','/disclaimer':'page-disclaimer'
+  };
+  function route(){
+    var h = location.hash.replace(/^#/,'');
+    var id = routes[h] || 'page-home';
+    var pages = document.querySelectorAll('.page');
+    for(var i=0;i<pages.length;i++){ pages[i].classList.toggle('active', pages[i].id===id); }
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange', route);
+
+  // ---- color math ----
+  function clamp(v){ return Math.max(0, Math.min(255, Math.round(v))); }
+  function rgbToHex(r,g,b){
+    function h(v){ var s = clamp(v).toString(16).toUpperCase(); return s.length===1?'0'+s:s; }
+    return '#'+h(r)+h(g)+h(b);
+  }
+  function hexToRgb(hex){
+    hex = hex.trim().replace(/^#/,'');
+    if(/^[0-9a-fA-F]{3}$/.test(hex)){ hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2]; }
+    if(!/^[0-9a-fA-F]{6}$/.test(hex)) return null;
+    return { r: parseInt(hex.substr(0,2),16), g: parseInt(hex.substr(2,2),16), b: parseInt(hex.substr(4,2),16) };
+  }
+  function rgbToHsl(r,g,b){
+    r/=255; g/=255; b/=255;
+    var max=Math.max(r,g,b), min=Math.min(r,g,b), l=(max+min)/2, h=0, s=0;
+    if(max!==min){
+      var d=max-min;
+      s = l>0.5 ? d/(2-max-min) : d/(max+min);
+      if(max===r) h=(g-b)/d + (g<b?6:0);
+      else if(max===g) h=(b-r)/d + 2;
+      else h=(r-g)/d + 4;
+      h*=60;
+    }
+    return { h: Math.round(h), s: Math.round(s*100), l: Math.round(l*100) };
+  }
+  function mix(c, target, amt){
+    return { r: clamp(c.r+(target.r-c.r)*amt), g: clamp(c.g+(target.g-c.g)*amt), b: clamp(c.b+(target.b-c.b)*amt) };
+  }
+
+  var state = { r:59, g:130, b:246 };
+  var els = {};
+  ['colorInput','hexInput','rRange','gRange','bRange','rNum','gNum','bNum','preview','previewLabel','hexOut','rgbOut','hslOut','cssOut','shades','tints','tones','toast'].forEach(function(id){ els[id]=document.getElementById(id); });
+
+  function swatchRow(container, colors){
+    container.innerHTML='';
+    colors.forEach(function(c){
+      var hex = rgbToHex(c.r,c.g,c.b);
+      var b = document.createElement('button');
+      b.type='button'; b.className='swatch'; b.style.background=hex;
+      b.title=hex; b.setAttribute('aria-label','Use color '+hex);
+      b.addEventListener('click', function(){ setColor(c.r,c.g,c.b); window.scrollTo({top:0,behavior:'smooth'}); });
+      container.appendChild(b);
+    });
+  }
+  function render(){
+    var r=state.r,g=state.g,b=state.b;
+    var hex = rgbToHex(r,g,b);
+    var hsl = rgbToHsl(r,g,b);
+    els.preview.style.background = hex;
+    els.previewLabel.textContent = hex;
+    els.colorInput.value = hex.toLowerCase();
+    if(document.activeElement!==els.hexInput) els.hexInput.value = hex;
+    els.rRange.value=r; els.gRange.value=g; els.bRange.value=b;
+    els.rNum.value=r; els.gNum.value=g; els.bNum.value=b;
+    els.hexOut.textContent = hex;
+    els.rgbOut.textContent = 'rgb('+r+', '+g+', '+b+')';
+    els.hslOut.textContent = 'hsl('+hsl.h+', '+hsl.s+'%, '+hsl.l+'%)';
+    els.cssOut.textContent = 'background-color: '+hex+';';
+    var black={r:0,g:0,b:0}, white={r:255,g:255,b:255}, gray={r:128,g:128,b:128};
+    var shades=[], tints=[], tones=[], i, amt;
+    for(i=1;i<=6;i++){ amt=i/7; shades.push(mix(state,black,amt)); tints.push(mix(state,white,amt)); tones.push(mix(state,gray,amt)); }
+    swatchRow(els.shades, shades); swatchRow(els.tints, tints); swatchRow(els.tones, tones);
+  }
+  function setColor(r,g,b){ state={r:clamp(r),g:clamp(g),b:clamp(b)}; render(); }
+
+  els.colorInput.addEventListener('input', function(){ var c=hexToRgb(els.colorInput.value); if(c) setColor(c.r,c.g,c.b); });
+  els.hexInput.addEventListener('input', function(){ var c=hexToRgb(els.hexInput.value); if(c){ state=c; renderSoft(); } });
+  function renderSoft(){ // update everything except hex field while typing
+    var save = els.hexInput.value; render(); els.hexInput.value = save;
+  }
+  els.hexInput.addEventListener('change', function(){ var c=hexToRgb(els.hexInput.value); if(c) setColor(c.r,c.g,c.b); else render(); });
+  [['rRange','rNum','r'],['gRange','gNum','g'],['bRange','bNum','b']].forEach(function(t){
+    var range=els[t[0]], num=els[t[1]], key=t[2];
+    range.addEventListener('input', function(){ state[key]=clamp(+range.value); render(); });
+    num.addEventListener('input', function(){ var v=parseInt(num.value,10); if(!isNaN(v)){ state[key]=clamp(v); renderSoftNum(num); } });
+    num.addEventListener('change', render);
+  });
+  function renderSoftNum(active){ var v=active.value; render(); active.value=v; }
+
+  // copy buttons
+  var toastTimer=null;
+  function showToast(msg){
+    els.toast.textContent=msg; els.toast.classList.add('show');
+    clearTimeout(toastTimer); toastTimer=setTimeout(function(){ els.toast.classList.remove('show'); },1600);
+  }
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var text = document.getElementById(btn.getAttribute('data-copy')).textContent;
+      function done(){ showToast('Copied: '+text); }
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done, function(){ fallback(); }); }
+      else fallback();
+      function fallback(){
+        var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); }catch(e){}
+        document.body.removeChild(ta); done();
+      }
+    });
+  });
+
+  // palettes
+  var palettes = [
+    { name:'Ocean Trust — calm blues for tech, finance and services', colors:['#0B3C5D','#1D70A2','#3B82F6','#BFDBFE','#F8FAFC'] },
+    { name:'Warm Kitchen — appetizing reds and oranges for food and hospitality', colors:['#7F1D1D','#C2410C','#EA580C','#FDBA74','#FFFBEB'] },
+    { name:'Forest Calm — greens for health, nature and outdoor brands', colors:['#14532D','#166534','#22C55E','#BBF7D0','#F0FDF4'] },
+    { name:'Stone Professional — warm neutrals that suit almost any business', colors:['#1C1917','#44403C','#78716C','#E7E5E4','#FAFAF9'] },
+    { name:'Berry Creative — purples and pinks for beauty, media and events', colors:['#581C87','#9333EA','#D946EF','#F5D0FE','#FDF4FF'] },
+    { name:'Sunny Market — cheerful yellows with firm dark text for shops and kids', colors:['#713F12','#A16207','#EAB308','#FDE68A','#FEFCE8'] }
+  ];
+  var palWrap = document.getElementById('palettes');
+  palettes.forEach(function(p){
+    var div=document.createElement('div'); div.className='palette-block';
+    var h=document.createElement('h3'); h.textContent=p.name; div.appendChild(h);
+    var row=document.createElement('div'); row.className='swatches';
+    p.colors.forEach(function(hex){
+      var c=hexToRgb(hex);
+      var b=document.createElement('button'); b.type='button'; b.className='swatch'; b.style.background=hex;
+      b.title=hex; b.setAttribute('aria-label','Use color '+hex);
+      b.addEventListener('click', function(){ setColor(c.r,c.g,c.b); window.scrollTo({top:0,behavior:'smooth'}); });
+      row.appendChild(b);
+    });
+    div.appendChild(row);
+    var codes=document.createElement('p'); codes.className='small'; codes.textContent=p.colors.join('  ·  ');
+    div.appendChild(codes);
+    palWrap.appendChild(div);
+  });
+
+  render();
+  route();
+})();
+</script>
+</body>
+</html>
